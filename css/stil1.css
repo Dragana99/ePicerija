@@ -112,7 +112,6 @@ h3{
     border-radius: 5px;
 }
 
-
 .kategorije{
     padding: 4% 0;
 }
@@ -122,7 +121,6 @@ h3{
     float: left;
     margin: 2%;
 }
-
 
 .pica-menu{
     background-color: #ececec;
@@ -157,7 +155,6 @@ h3{
     color: #747d8c;
 }
 
-
 .mreze ul{
     list-style-type: none;
 }
@@ -166,6 +163,24 @@ h3{
     padding: 1%;
 }
 
+/* CSS za sekciju Porucivanje */ 
+
+.porudzbina{
+    width: 50%;
+    margin: 0 auto;
+}
+.unos-responsive{
+    width: 96%;
+    padding: 1%;
+    margin-bottom: 3%;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+.oznaka-porudzbine{
+    margin-bottom: 1%; 
+    font-weight: bold;
+}
 
 @media only screen and (max-width:768px){
     .logo{
@@ -216,5 +231,7 @@ h3{
     .mreze{
         padding: 5% 0;
     }
-    
+    .porudzbina{
+        width: 100%;
+    }
 }
