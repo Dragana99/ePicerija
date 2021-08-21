@@ -4,7 +4,7 @@
     <div class="kontejner">
         
         <form action="<?php echo SITEURL; ?>pretraga-pice.php" method="POST">
-            <input type="search" name="pretraga" placeholder="Pretraga pizze.." required>
+            <input type="search" name="pretraga" placeholder="Pretraga pice.." required>
             <input type="submit" name="submit" value="Trazi" class="btn btn-stil">
         </form>
 
@@ -59,7 +59,7 @@
                             </p>
                             <br>
 
-                            <a href="<?php echo SITEURL; ?>porudzbina.php?id_pice=<?php echo $id; ?>" class="btn btn-stil">Poruci</a>
+                            <a href="<?php echo SITEURL; ?>porudzbina.php?pica_id=<?php echo $id; ?>" class="btn btn-stil">Poruci</a>
                         </div>
                     </div>
 
