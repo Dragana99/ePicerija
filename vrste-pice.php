@@ -1,37 +1,68 @@
 <?php include('osnovni-delovi-stranica/menu.php'); ?>
 
+<?php 
+    //Provera da li je prosao id
+    if(isset($_GET['id_vrste']))
+    {
+        //Postavljenje id vrste
+        $id_vrste = $_GET['id_vrste'];
+        $sql = "SELECT naziv FROM vrsta WHERE id=$id_vrste";
+
+        //Izvrsavanje upita
+        $rezultat = mysqli_query($conn, $sql);
+
+        //Uzimanje vrednosti iz baze
+        $red = mysqli_fetch_assoc($rezultat);
+        //Postavljanje naziva vrste
+        $naziv_vrste = $red['naziv'];
+    }
+    else
+    {
+        //Redirekcija na home page
+        header('location:'.SITEURL);
+    }
+?>
+
+
+<!-- Sekcija pretrage pice -->
 <section class="pretraga-pice centriran-text">
     <div class="kontejner">
         
-        <form action="<?php echo SITEURL; ?>pretraga-pice.php" method="POST">
-            <input type="search" name="pretraga" placeholder="Pretraga pice.." required>
-            <input type="submit" name="submit" value="Trazi" class="btn btn-stil">
-        </form>
+        <h2>Pice <a href="#" class="beli-text">"<?php echo $naziv_vrste; ?>"</a></h2>
 
     </div>
 </section>
+<!-- kraj sekcije pretrage pice -->
 
 
+
+<!-- Sekcija pizza menu -->
 <section class="pica-menu">
     <div class="kontejner">
-        <h2 class="centriran-text">Pice Menu</h2>
+        <h2 class="centriran-text">Pizza menu</h2>
 
         <?php 
-            $sql = "SELECT * FROM pica WHERE u_prodaji='Da'";
+        
+            //SQL upit za uzimanje pice iz odredjene kategorije
+            $sql2 = "SELECT * FROM pica WHERE id_vrste=$id_vrste";
 
-            $rezultat=mysqli_query($conn, $sql);
+            //Izvrsavanje upita
+            $rezultat2 = mysqli_query($conn, $sql2);
 
-            $broj = mysqli_num_reds($rezultat);
+            //Count the reds
+            $ukupno = mysqli_num_rows($rezultat2);
 
-            if($broj>0)
+            //CHeck whether food is available or not
+            if($ukupno>0)
             {
-                while($red=mysqli_fetch_assoc($rezultat))
+                //Food is Available
+                while($red2=mysqli_fetch_assoc($rezultat2))
                 {
-                    $id = $red['id'];
-                    $naziv = $red['naziv'];
-                    $opis = $red['opis'];
-                    $cena = $red['cena'];
-                    $naziv_slike = $red['naziv_slike'];
+                    $id = $red2['id'];
+                    $naziv = $red2['naziv'];
+                    $cena = $red2['cena'];
+                    $opis = $red2['opis'];
+                    $naziv_slike = $red2['naziv_slike'];
                     ?>
                     
                     <div class="pica-menu-box">
@@ -39,12 +70,14 @@
                             <?php 
                                 if($naziv_slike=="")
                                 {
-                                    echo "<div class='error'>Slika nije dostupna</div>";
+                                    //Slika nije dostupna
+                                    echo "<div class='error'>Slika nije dostupna.</div>";
                                 }
                                 else
                                 {
+                                    //Slika dostupna
                                     ?>
-                                    <img src="<?php echo SITEURL; ?>slike/pice/<?php echo $naziv_slike; ?>" alt="Pizza" class="responsive-slike slike-curve">
+                                    <img src="<?php echo SITEURL; ?>slike/pice/<?php echo $naziv_slike; ?>" alt="Pizza" class="responsive-slika slika-curve">
                                     <?php
                                 }
                             ?>
@@ -59,7 +92,7 @@
                             </p>
                             <br>
 
-                            <a href="<?php echo SITEURL; ?>porudzbina.php?pica_id=<?php echo $id; ?>" class="btn btn-stil">Poruci</a>
+                            <a href="<?php echo SITEURL; ?>porudzbina.php?pica_id=<?php echo $id; ?>" class="btn btn-stil">Poruči</a>
                         </div>
                     </div>
 
@@ -68,14 +101,17 @@
             }
             else
             {
-                echo "<div class='error'>Pica nije nadjena</div>";
+                //Pica nije nadjena
+                echo "<div class='error'>Pica nije nadjena.</div>";
             }
+        
         ?>
 
         <div class="fiksiran"></div>
-
+  
     </div>
-
 </section>
+<!-- Kraj pizza menu sekcije -->
+
 
 <?php include('osnovni-delovi-stranica/footer.php'); ?>
