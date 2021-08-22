@@ -56,4 +56,4 @@
     </div>
 </section>
 
-<?php include('partials-front/footer.php'); ?>
+<?php include('osnovni-delovi-stranica/footer.php'); ?>

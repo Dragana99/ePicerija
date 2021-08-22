@@ -63,7 +63,7 @@
                             
                         </div>
 
-                        <div class="pice-menu-opis">
+                        <div class="pica-menu-opis">
                             <h4><?php echo $naziv; ?></h4>
                             <p class="cena-pice">$<?php echo $cena; ?></p>
                             <p class="detalji-pice">
