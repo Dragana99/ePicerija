@@ -2,7 +2,7 @@
     //Sesija
     session_start();
 
-    define('SITEURL', 'http://localhost/ePicerija/');
+    define('SITEURL', 'http://localhost/ePicerija/ePicerija/');
     define('LOCALHOST', 'localhost');
     define('DB_USERNAME', 'root');
     define('DB_PASSWORD', '');

@@ -1,4 +1,4 @@
-<?php include('konfigiracija/konekcija.php'); ?>
+<?php include('konfiguracija/konekcija.php'); ?>
 
 <!DOCTYPE html>
 <html>
@@ -16,7 +16,7 @@
     <section class="navbar">
         <div class="kontejner">
             <div class="logo">
-                <a href="#" title="Logo">
+                <a href="<?php echo SITEURL; ?>" title="Logo">
                     <img src="slike/logo.png" alt="ePicerija Logo" class="responsive-slika">
                 </a>
             </div>
@@ -31,9 +31,6 @@
                     </li>
                     <li>
                         <a href="<?php echo SITEURL; ?>pice.php">Pice</a>
-                    </li>
-                    <li>
-                        <a href="#">Kontakt</a>
                     </li>
                 </ul>
             </div>
