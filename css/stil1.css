@@ -1,237 +1,243 @@
-
-*{
-    margin: 0 0;
-    padding: 0 0;
-    font-family: Arial, Helvetica, sans-serif;
+* {
+  margin: 0 0;
+  padding: 0 0;
+  font-family: Arial, Helvetica, sans-serif;
 }
-.kontejner{
+.kontejner {
+  width: 80%;
+  margin: 0 auto;
+  padding: 1%;
+}
+.responsive-slike {
+  width: 100%;
+}
+.slike-curve {
+  border-radius: 15px;
+}
+
+.text-desno {
+  text-align: right;
+}
+.centriran-text {
+  text-align: center;
+}
+.text-levo {
+  text-align: left;
+}
+.beli-text {
+  color: white;
+}
+
+.fiksiran {
+  clear: both;
+  float: none;
+}
+
+a {
+  color: #ff6b81;
+  text-decoration: none;
+}
+a:hover {
+  color: #ff4757;
+}
+
+.btn {
+  padding: 1%;
+  border: none;
+  font-size: 1rem;
+  border-radius: 5px;
+}
+.btn-stil {
+  background-color: #ff6b81;
+  color: white;
+  cursor: pointer;
+}
+.btn-stil:hover {
+  color: white;
+  background-color: #ff4757;
+}
+h2 {
+  color: #2f3542;
+  font-size: 2rem;
+  margin-bottom: 2%;
+}
+h3 {
+  font-size: 1.5rem;
+}
+.float-kontejner {
+  position: relative;
+}
+.float-text {
+  position: absolute;
+  bottom: 50px;
+  left: 40%;
+}
+
+.error {
+  padding: 2%;
+  color: red;
+}
+
+.logo {
+  width: 10%;
+  float: left;
+}
+.menu {
+  line-height: 60px;
+}
+.menu ul {
+  list-style-type: none;
+}
+
+.menu ul li {
+  display: inline;
+  padding: 1%;
+  font-weight: bold;
+}
+
+.pretraga-pice {
+  background-image: url(../slike/slika-bg.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  padding: 10% 0;
+}
+
+.pretraga-pice input[type="search"] {
+  width: 50%;
+  padding: 1%;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+}
+
+.kategorije {
+  padding: 2% 0;
+}
+
+.box-3 {
+  width: 28%;
+  float: left;
+  margin: 2%;
+}
+
+.pica-menu {
+  background-color: #ececec;
+  padding: 4% 0;
+}
+.pica-menu-box {
+  width: 80%;
+  margin: 1%;
+  padding: 2%;
+  float: left;
+  background-color: white;
+  border-radius: 15px;
+}
+
+.pica-menu-slika {
+  width: 60%;
+  float: left;
+  overflow: hidden;
+  /*width: 20%;
+  float: left;*/
+}
+
+.pica-menu-opis {
+  width: 30%;
+  float: right;
+  margin-left: 8%;
+  /*
+  width: 70%;
+  float: left;
+  margin-left: 8%;*/
+}
+
+.cena-pice {
+  font-size: 1.2rem;
+  margin: 2% 0;
+}
+.detalji-pice {
+  font-size: 1rem;
+  color: #747d8c;
+}
+
+.mreze ul {
+  list-style-type: none;
+}
+.mreze ul li {
+  display: inline;
+  padding: 1%;
+}
+
+/* CSS za sekciju Porucivanje */
+
+.porudzbina {
+  width: 50%;
+  margin: 0 auto;
+}
+.unos-responsive {
+  width: 96%;
+  padding: 1%;
+  margin-bottom: 3%;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+.oznaka-porudzbine {
+  margin-bottom: 1%;
+  font-weight: bold;
+}
+
+@media only screen and (max-width: 768px) {
+  .logo {
     width: 80%;
-    margin: 0 auto;
-    padding: 1%;
-}
-.responsive-slike{
-    width: 100%;
-}
-.slike-curve{
-    border-radius: 15px;
-}
-
-.text-desno{
-    text-align: right;
-}
-.centriran-text{
-    text-align: center;
-}
-.text-levo{
-    text-align: left;
-}
-.beli-text{
-    color: white;
-}
-
-.fiksiran{
-    clear: both;
     float: none;
-}
+    margin: 1% auto;
+  }
 
-a{
-    color: #ff6b81;
-    text-decoration: none;
-}
-a:hover{
-    color: #ff4757;
-}
+  .menu ul {
+    text-align: center;
+  }
 
-.btn{
-    padding: 1%;
-    border: none;
-    font-size: 1rem;
-    border-radius: 5px;
-}
-.btn-stil{
-    background-color: #ff6b81;
-    color: white;
-    cursor: pointer;
-}
-.btn-stil:hover{
-    color: white;
-    background-color: #ff4757;
-}
-h2{
-    color: #2f3542;
-    font-size: 2rem;
-    margin-bottom: 2%;
-}
-h3{
-    font-size: 1.5rem;
-}
-.float-kontejner{
-    position: relative;
-}
-.float-text{
-    position: absolute;
-    bottom: 50px;
-    left: 40%;
-}
-
-.error{
+  .pretraga-pica input[type="search"] {
+    width: 90%;
     padding: 2%;
-    color: red;
-}
-
-.logo{
-    width: 10%;
-    float: left;
-}
-.menu{
-    line-height: 60px;
-}
-.menu ul{
-    list-style-type: none;
-}
-
-.menu ul li{
-    display: inline;
-    padding: 1%;
-    font-weight: bold;
-}
-
-.pretraga-pica{
-    background-image: url(../slike/bg.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    padding: 7% 0;
-}
-
-.pretraga-pica input[type="pretraga"]{
-    width: 50%;
-    padding: 1%;
-    font-size: 1rem;
-    border: none;
-    border-radius: 5px;
-}
-
-.kategorije{
-    padding: 4% 0;
-}
-
-.box-3{
-    width: 28%;
-    float: left;
-    margin: 2%;
-}
-
-.pica-menu{
-    background-color: #ececec;
-    padding: 4% 0;
-}
-.pica-menu-box{
-    width: 43%;
-    margin: 1%;
-    padding: 2%;
-    float: left;
-    background-color: white;
-    border-radius: 15px;
-}
-
-.pica-menu-slika{
-    width: 20%;
-    float: left;
-}
-
-.pica-menu-opis{
-    width: 70%;
-    float: left;
-    margin-left: 8%;
-}
-
-.cena-pice{
-    font-size: 1.2rem;
-    margin: 2% 0;
-}
-.detalji-pice{
-    font-size: 1rem;
-    color: #747d8c;
-}
-
-.mreze ul{
-    list-style-type: none;
-}
-.mreze ul li{
-    display: inline;
-    padding: 1%;
-}
-
-/* CSS za sekciju Porucivanje */ 
-
-.porudzbina{
-    width: 50%;
-    margin: 0 auto;
-}
-.unos-responsive{
-    width: 96%;
-    padding: 1%;
     margin-bottom: 3%;
-    border: none;
-    border-radius: 5px;
-    font-size: 1rem;
-}
-.oznaka-porudzbine{
-    margin-bottom: 1%; 
-    font-weight: bold;
-}
+  }
 
-@media only screen and (max-width:768px){
-    .logo{
-        width: 80%;
-        float: none;
-        margin: 1% auto;
-    }
+  .btn {
+    width: 91%;
+    padding: 2%;
+  }
 
-    .menu ul{
-        text-align: center;
-    }
+  .pretraga-pica {
+    padding: 10% 0;
+  }
 
-    .pretraga-pica input[type="search"]{
-        width: 90%;
-        padding: 2%;
-        margin-bottom: 3%;
-    }
+  .kategorije {
+    padding: 20% 0;
+  }
+  h2 {
+    margin-bottom: 10%;
+  }
+  .box-3 {
+    width: 100%;
+    margin: 4% auto;
+  }
 
-    .btn{
-        width: 91%;
-        padding: 2%;
-    }
+  .pica-menu {
+    padding: 20% 0;
+  }
 
-    .pretraga-pica{
-        padding: 10% 0;
-    }
-
-    .kategorije{
-        padding: 20% 0;
-    }
-    h2{
-        margin-bottom: 10%;
-    }
-    .box-3{
-        width: 100%;
-        margin: 4% auto;
-    }
-
-    .pica-menu{
-        padding: 20% 0;
-    }
-
-    .pica-menu-box{
-        width: 90%;
-        padding: 5%;
-        margin-bottom: 5%;
-    }
-    .mreze{
-        padding: 5% 0;
-    }
-    .porudzbina{
-        width: 100%;
-    }
+  .pica-menu-box {
+    width: 90%;
+    padding: 5%;
+    margin-bottom: 5%;
+  }
+  .mreze {
+    padding: 5% 0;
+  }
+  .porudzbina {
+    width: 100%;
+  }
 }
