@@ -1,4 +1,4 @@
-<?php include('partials/menu.php'); ?>
+<?php include('delovi-stranica/menu.php'); ?>
 
 <div class="glavni-sadrzaj">
     <div class="omotac">
