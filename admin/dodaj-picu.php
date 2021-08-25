@@ -1,4 +1,4 @@
-<?php include('partials/menu.php'); ?>
+<?php include('delovi-stranica/menu.php'); ?>
 
 <div class="glavni-sadrzaj">
     <div class="omotac">
@@ -225,4 +225,4 @@
     </div>
 </div>
 
-<?php include('partials/footer.php'); ?>
+<?php include('delovi-stranica/footer.php'); ?>
