@@ -99,7 +99,7 @@
                     <div class="oznaka-porudzbine">Adresa</div>
                     <textarea name="adresa" rows="10" placeholder="npr. Nikole Pasica 10" class="unos-responsive" required></textarea>
 
-                    <input type="submit" name="potvrdi" value="Potvrdi porudžbinu" class="btn btn-primary">
+                    <input type="submit" name="potvrdi" value="Potvrdi porudžbinu" class="btn btn-stil">
                 </fieldset>
 
             </form>
