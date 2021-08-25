@@ -101,7 +101,7 @@
                         
                         $source_path = $_FILES['image']['privremeni_naziv'];
 
-                        $destination_path = "../slike/pice/".$naziv_slike;
+                        $destination_path = "../slike/vrste/".$naziv_slike;
 
                         //Konačni upload slike
                         $upload = move_uploaded_file($source_path, $destination_path);
