@@ -52,7 +52,7 @@
     </div>
 </div>
 
-<?php include('partials/footer.php'); ?>
+<?php include('delovi-stranica/footer.php'); ?>
 
 
 <?php 
