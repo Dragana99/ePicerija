@@ -1,5 +1,4 @@
 <?php include('delovi-stranica/menu.php'); ?>
-
 <div class="glavni-sadrzaj">
     <div class="omotac">
         <h1>Dodaj vrstu</h1>
@@ -38,15 +37,15 @@
                 <tr>
                     <td>Naziv slike: </td>
                     <td>
-                        <input type="file" name="image">
+                        <input type="file" name="slika">
                     </td>
                 </tr>
 
                 <tr>
                     <td>U prodaji: </td>
                     <td>
-                        <input type="radio" name="u_prodaji" value="Yes"> Da 
-                        <input type="radio" name="u_prodaji" value="No"> Ne 
+                        <input type="radio" name="u_prodaji" value="Da"> Da 
+                        <input type="radio" name="u_prodaji" value="Ne"> Ne 
                     </td>
                 </tr>
 
@@ -82,24 +81,24 @@
                 }
 
 
-                if(isset($_FILES['image']['naziv']))
+                if(isset($_FILES['slika']['name']))
                 {
                     //Upload slike
                     //Da bi slika bila upload-ovana moramo znati njen naziv, source path i destination path
-                    $image = $_FILES['image']['naziv'];
+                    $naziv_slike= $_FILES['slika']['name'];
                     
                     // Upload slike samo ukoliko je selektovana
-                    if($image != "")
+                    if($naziv_slike!= "")
                     {
 
                         //Preimenovanje slike 
                         //Uzimanje ekstenzije date slike (jpg, png, gif...) npr. "pica.jpg"
-                        $ext = end(explode('.', $image));
+                        $ext = end(explode('.', $naziv_slike));
 
                         //Preimenovanje slike
                         $naziv_slike = "vrsta_pice".rand(000, 999).'.'.$ext; // npr. vrsta_pice.jpg
                         
-                        $source_path = $_FILES['image']['privremeni_naziv'];
+                        $source_path = $_FILES['slika']['tmp_name'];
 
                         $destination_path = "../slike/vrste/".$naziv_slike;
 
@@ -111,7 +110,7 @@
                         if($upload==false)
                         {
                             //Prikazi poruku
-                            $_SESSION['upload'] = "<div class='error'>Neuspešno postavljenja slika. </div>";
+                            $_SESSION['upload'] = "<div class='greska'>Neuspešno postavljenja slika. </div>";
                             //Redirekcija ka stranici Dodaj Vrstu
                             header('location:'.SITEURL.'admin/dodaj-vrstu.php');
                             //Stopiranje procesa
@@ -140,14 +139,14 @@
                 if($rezultat==true)
                 {
                     //Upit izvršen, vrsta dodata
-                    $_SESSION['add'] = "<div class='success'>Vrsta upešno dodata.</div>";
+                    $_SESSION['add'] = "<div class='uspesno'>Vrsta upešno dodata.</div>";
                     //Redirekcija ka stranici za upravljanje vrstom
                     header('location:'.SITEURL.'admin/upravljaj-vrstom.php');
                 }
                 else
                 {
                     //Neuspešno dodavanje vrste
-                    $_SESSION['add'] = "<div class='error'>Vrsta neuspešno dodata.</div>";
+                    $_SESSION['add'] = "<div class='greska'>Vrsta neuspešno dodata.</div>";
                     //Redirekcija ka stranici za upravljanje vrstom
                     header('location:'.SITEURL.'admin/dodaj-vrstu.php');
                 }
