@@ -42,7 +42,7 @@
                 <tr>
                     <td>Naziv slike: </td>
                     <td>
-                        <input type="file" name="image">
+                        <input type="file" name="slika">
                     </td>
                 </tr>
 
@@ -96,8 +96,8 @@
                 <tr>
                     <td>U prodaji: </td>
                     <td>
-                        <input type="radio" name="u_prodaji" value="Yes"> Da 
-                        <input type="radio" name="u_prodaji" value="No"> Ne
+                        <input type="radio" name="u_prodaji" value="Da"> Da 
+                        <input type="radio" name="u_prodaji" value="Ne"> Ne
                     </td>
                 </tr>
 
@@ -124,7 +124,7 @@
                 $naziv = $_POST['naziv'];
                 $opis = $_POST['opis'];
                 $cena = $_POST['cena'];
-                $id_vrste = $_POST['id_vrste'];
+                $vrsta_pice = $_POST['vrsta_pice'];
 
                 //Provera da li je radio button za "u prodaji" stikliran
                 if(isset($_POST['u_prodaji']))
@@ -138,10 +138,10 @@
 
                 //2. Upload slike ukoliko je selektovana
                 //Provera da li je selektovana slika klikuta ili ne i upload slike samo ukoliko je selektovana
-                if(isset($_FILES['image']['naziv']))
+                if(isset($_FILES['slika']['name']))
                 {
                     //Uzimanje detalja slektovane slike
-                    $naziv_slike = $_FILES['image']['naziv'];
+                    $naziv_slike = $_FILES['slika']['name'];
 
                     //Provera da li je selektovana slika klikuta ili ne i upload slike samo ukoliko je selektovana
                     if($naziv_slike!="")
@@ -152,13 +152,13 @@
                         $ext = end(explode('.', $naziv_slike));
 
                         // Kreiranje novog imena slike
-                        $naziv_slike = "Naziv-pice-".rand(0000,9999).".".$ext; //Nov naziv slike moze biti "Naziv-pice-25.jpg"
+                        $naziv_slike = "naziv_pice".rand(0000,9999).".".$ext; //Nov naziv slike moze biti "Naziv-pice-25.jpg"
 
                         //B. Upload slike
                         //Uzimanje src i destination path-a
 
                         // Source path je trenutna lokacija slike
-                        $src = $_FILES['image']['privremeni-naziv'];
+                        $src = $_FILES['slika']['tmp_name'];
 
                         //Destination Path je tamo gde ce slika biti upload-ovana
                         $dst = "../slike/pice/".$naziv_slike;
@@ -171,7 +171,7 @@
                         {
                             //Neuspesan upload
                             //Redirekcija ka stranici Dodaj picu uz poruku 
-                            $_SESSION['upload'] = "<div class='error'>Neuspešan upload slike.</div>";
+                            $_SESSION['upload'] = "<div class='greska'>Neuspešan upload slike.</div>";
                             header('location:'.SITEURL.'admin/dodaj-picu.php');
                             //Stopiranje procesa
                             die();
@@ -194,7 +194,7 @@
                     opis = '$opis',
                     cena = $cena,
                     naziv_slike = '$naziv_slike',
-                    id_vrste = $id_vrste,
+                    id_vrste = $vrsta_pice,
                     u_prodaji = '$u_prodaji'
                 ";
 
@@ -206,13 +206,13 @@
                 if($rezultat2 == true)
                 {
                     //Podaci uspešno uneti
-                    $_SESSION['add'] = "<div class='success'>Pica uspešno dodata.</div>";
+                    $_SESSION['add'] = "<div class='uspesno'>Pica uspešno dodata.</div>";
                     header('location:'.SITEURL.'admin/upravljaj-picama.php');
                 }
                 else
                 {
                     //Neuspešan unos podataka
-                    $_SESSION['add'] = "<div class='error'>Pica neuspešno dodata.</div>";
+                    $_SESSION['add'] = "<div class='greska'>Pica neuspešno dodata.</div>";
                     header('location:'.SITEURL.'admin/upravljaj-picama.php');
                 }
 
