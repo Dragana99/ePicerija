@@ -86,7 +86,7 @@
             //Podaci su uneti
             //echo "Podaci Uneti";
             //Kreiranje varijable sesije za prikaz poruke
-            $_SESSION['add'] = "<div class='success'>Admin dodat uspešno.</div>";
+            $_SESSION['add'] = "<div class='uspesno'>Admin dodat uspešno.</div>";
             //Redirekcija ka stranici za upravljanje adminom
             header("location:".SITEURL.'admin/upravljaj-adminom.php');
         }
@@ -95,7 +95,7 @@
             //Neuspešno uneti podaci 
             //echo "Neuspešan unos";
             //Kreiranje varijable sesije za prikaz poruke
-            $_SESSION['add'] = "<div class='error'>Admin neuspešno dodat.</div>";
+            $_SESSION['add'] = "<div class='greska'>Admin neuspešno dodat.</div>";
             //Redirekcija stranice za dodavanje admina
             header("location:".SITEURL.'admin/dodaj-admina.php');
         }
