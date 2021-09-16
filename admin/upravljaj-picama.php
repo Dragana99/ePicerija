@@ -1,4 +1,8 @@
-<?php include('delovi-stranica/menu.php'); ?>
+<?php 
+    include('delovi-stranica/menu.php'); 
+    include_once '../klase/PicaKlasa.php';
+    $pice = new Pica();
+?>
 
 <div class="glavni-sadrzaj">
     <div class="omotac">
@@ -55,19 +59,13 @@
                     </tr>
 
                     <?php 
-                        //SQL upit za dobijanje svih pica
-                        $sql = "SELECT * FROM pica";
-
-                        //Izvršavanje upita
-                        $rezultat = mysqli_query($conn, $sql);
-
-                        //Brojanje redova radi provere da li pice postoje
-                        $broj = mysqli_num_rows($rezultat);
+                        //Poziv funkcije sa SQL upitom za dobijanje svih pica iz baze
+                        $rezultat = $pice->svePice();
 
                         //Kreiranje varijable serijskog broja i postavljanje inicijalne vrednosti 1
                         $sn=1;
 
-                        if($broj>0)
+                        if($broj = mysqli_num_rows($rezultat)>0)
                         {
                             //Pice postoje u bazi
                             //Uzimanje pica iz baze i prikaz
