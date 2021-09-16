@@ -1,4 +1,10 @@
-<?php include('osnovni-delovi-stranica/menu.php'); ?>
+<?php 
+include('osnovni-delovi-stranica/menu.php'); 
+include_once 'klase/PicaKlasa.php';
+include_once 'klase/PorudzbinaKlasa.php';
+$pice = new Pica();
+$porudzbine = new Porudzbina();
+?>
 
     <?php 
         //Provera da li je postavljen id pice
@@ -7,17 +13,11 @@
             //Uzimanje id-a selektovane pice
             $pica_id = $_GET['pica_id'];
 
-            //Uzimanje detalja selektovane pice
-            $sql = "SELECT * FROM pica WHERE id=$pica_id";
-			
-            //Izvrsavanje upita
-            $rezultat = mysqli_query($conn, $sql);
-			
-            //Brojanje redova
-            $broj = mysqli_num_rows($rezultat);
+            //Poziv funkcije za prikaz detalja pice sa određenim id-em
+            $rezultat = $pice->prikazSaIdPice2($pica_id);
 			
             //Provera da li su podaci dostupni ili ne
-            if($broj==1)
+            if(mysqli_num_rows($rezultat)==1)
             {
                 //Dostupni podaci
                 //Uzimanje podataka iz baze
@@ -75,7 +75,7 @@
                         <h3><?php echo $naziv; ?></h3>
                         <input type="hidden" name="pica" value="<?php echo $naziv; ?>">
 
-                        <p class="cena-pice">din.<?php echo $cena; ?></p>
+                        <p class="cena-pice"><?php echo $cena; ?>din.</p>
                         <input type="hidden" name="cena" value="<?php echo $cena; ?>">
 
                         <div class="oznaka-porudzbine">Količina</div>
@@ -91,7 +91,7 @@
                     <input type="text" name="kupac" placeholder="npr. Petar Petrovic" class="unos-responsive" required>
 
                     <div class="oznaka-porudzbine">Broj telefona</div>
-                    <input type="tel" name="kontakt_tel" placeholder="npr. 0643xxxxxx" class="unos-responsive" required>
+                    <input type="number" name="kontakt_tel" placeholder="npr. 0643xxxxxx" class="unos-responsive" required>
 
                     <div class="oznaka-porudzbine">Email</div>
                     <input type="email" name="email" placeholder="npr. pp@gmail.com" class="unos-responsive" required>
@@ -120,43 +120,27 @@
 
                     $status = "Poruceno";  //Poruceno, Dostava u toku, Dostavljeno, Otkazano
 
+                    //postavljanje vrednosti u promenjljive
                     $kupac = $_POST['kupac'];
-                    $kontakt-tel = $_POST['kontakt-tel'];
+                    $kontakt_tel = $_POST['kontakt_tel'];
                     $email = $_POST['email'];
                     $adresa = $_POST['adresa'];
 
 
-                    //Zabelezi porudzbinu u bazu podataka
-                    //Kreiranje SQL-a radi cuvanja podataka
-                    $sql2 = "INSERT INTO porudzbina SET 
-                        pica = '$pica',
-                        cena = $cena,
-                        kolicina = $kolicina,
-                        ukupno = $ukupno,
-                        datum = '$datum',
-                        status = '$status',
-                        kupac = '$kupac',
-                        kontakt-tel = '$kontakt-tel',
-                        email = '$email',
-                        adresa = '$adresa'
-                    ";
-
-                    //echo $sql2; die();
-
-                    //Izvrsavanje upita
-                    $rezultat2 = mysqli_query($conn, $sql2);
-
-                    //Provera uspesnosti upita
+                    //Poziv funkcije za smeštanje podataka o porudžbini
+                    $rezultat2 = $porudzbine->sacuvajPorudzbinu($pica, $cena, $kolicina, $ukupno, $datum, $status, $kupac, $kontakt_tel, $email, $adresa);
+                    
+                    //Provera uspešnosti upita
                     if($rezultat2==true)
                     {
-                        //Upit izvrsen, porudzbina je sacuvana
-                        $_SESSION['porudzbina'] = "<div class='success centriran-text'>Uspesno izvrsena porudzbina.</div>";
+                        //Upit izvršen, porudžbina je sačuvana
+                        $_SESSION['porudzbina'] = "<div class='success centriran-text'>Porudžbina je uspešno primljena.</div>";
                         header('location:'.SITEURL);
                     }
                     else
                     {
-                        //Neuspesno sacuvana porudzbina
-                        $_SESSION['porudzbina'] = "<div class='error centriran-text'>Neuspesno izvrsena porudzbina.</div>";
+                        //Neuspešno sačuvana porudžbina
+                        $_SESSION['porudzbina'] = "<div class='error centriran-text'>Neuspešno izvršena porudžbina.</div>";
                         header('location:'.SITEURL);
                     }
 
@@ -166,6 +150,6 @@
 
         </div>
     </section>
-    <!-- Sekcija - Pretraga pice - se ovde zavrsava -->
+    <!-- Sekcija - Pretraga pice - se ovde završava -->
 
     <?php include('osnovni-delovi-stranica/footer.php'); ?>
