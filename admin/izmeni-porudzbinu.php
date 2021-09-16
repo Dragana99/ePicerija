@@ -1,4 +1,8 @@
-<?php include('delovi-stranica/menu.php'); ?>
+<?php 
+include('delovi-stranica/menu.php'); 
+include_once '../klase/PorudzbinaKlasa.php';
+$porudzbine = new Porudzbina();
+?>
 
 <div class="glavni-sadrzaj">
 	<div class="omotac">
@@ -13,15 +17,10 @@
                 //Uzimanje id-a
                 $id=$_GET['id'];
 
-                //Uzimanje ostalih podataka na osnovu id-a
-                //SQL upit za uzimanje svih detalja
-                $sql = "SELECT * FROM porudzbina WHERE id=$id";
-                //Izvršavanje upita
-                $rezultat = mysqli_query($conn, $sql);
-                //Brojanje redova
-                $broj = mysqli_num_rows($rezultat);
+                //Poziv funkcije za prikaz podataka porudžbine određenog id-a
+                $rezultat = $porudzbine->prikazSaIdPorudzbine($id);
 
-                if($broj==1)
+                if(mysqli_num_rows($rezultat)==1)
                 {
                     //Detalji su dostupni
                     $row=mysqli_fetch_assoc($rezultat);
@@ -144,20 +143,8 @@
                 $email = $_POST['email'];
                 $adresa = $_POST['adresa'];
 
-                //Izmena vrednosti
-                $sql2 = "UPDATE porudzbina SET 
-                    kolicina = $kolicina,
-                    ukupno = $ukupno,
-                    status = '$status',
-                    kupac = '$kupac',
-                    kontakt_tel = '$kontakt_tel',
-                    email = '$email',
-                    adresa = '$adresa'
-                    WHERE id=$id
-                ";
-
-                //Izvršavanje upita
-                $rezultat2 = mysqli_query($conn, $sql2);
+                //Poziv funkcije za izmenu podataka o porudžbini
+                $rezultat2 = $porudzbine->izmeniPorudzbinu($id, $kolicina, $ukupno, $status, $kupac, $kontakt_tel, $email, $adresa);
 
                 //Provera da li je izmenjena porudzbina
                 //i redirekcija ka stranici za upravljanje porudzbinama uz poruku
