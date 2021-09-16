@@ -1,6 +1,8 @@
 <?php 
     //Uključivanje fajla konekcije
     include('../konfiguracija/konekcija.php');
+    include_once '../klase/PicaKlasa.php';
+    $pice = new Pica();
 
     //echo "Obriši stranicu";
     if(isset($_GET['id']) && isset($_GET['naziv_slike'])) //'&&' ili 'AND'
@@ -34,9 +36,7 @@
         }
 
         //3.Brisanje pice iz baze
-        $sql = "DELETE FROM pica WHERE id=$id";
-        //Izvršavanje upita
-        $rezultat = mysqli_query($conn, $sql);
+        $rezultat = $pice->obrisiPicu($id);
 
         //Provera da li je upit izvršen i postavljanje poruke sesije(procesa)
         //4.Redirekcija ka stranici - upravljaj picama uz poruku
