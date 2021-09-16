@@ -1,4 +1,7 @@
-<?php include('delovi-stranica/menu.php'); ?>
+<?php include('delovi-stranica/menu.php'); 
+    include_once '../klase/VrstaKlasa.php';
+    $vrste = new Vrsta();
+?>
 <div class="glavni-sadrzaj">
     <div class="omotac">
         <h1>Dodaj vrstu</h1>
@@ -125,15 +128,8 @@
                     $naziv_slike="";
                 }
 
-                //2. Kreiranje SQL upita za unos Vrste u bazu
-                $sql = "INSERT INTO vrsta SET 
-                    naziv='$naziv',
-                    naziv_slike='$naziv_slike',
-                    u_prodaji='$u_prodaji'
-                ";
-
-                //3. Izvršavanje upita i smeštanje u bazu podataka
-                $rezultat = mysqli_query($conn, $sql);
+                //Poziv funkcije za dodavanje nove vrste u bazu
+                $rezultat = $vrste->dodajVrstu($naziv, $naziv_slike, $u_prodaji);
 
                 //4. Provera da li je upit izvršen i da li su podaci dodati ili ne
                 if($rezultat==true)
