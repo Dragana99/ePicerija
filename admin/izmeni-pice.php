@@ -1,4 +1,10 @@
-<?php include('delovi-stranica/menu.php'); ?>
+<?php 
+    include('delovi-stranica/menu.php'); 
+    include_once '../klase/PicaKlasa.php';
+    include_once '../klase/VrstaKlasa.php';
+    $pice = new Pica();
+    $vrste = new Vrsta();
+?>
 
 <?php 
     //Provera da li je id setovan ili ne
@@ -7,10 +13,8 @@
         //Uzimanje svih detalja
         $id = $_GET['id'];
 
-        //SQL upit za donijanje selektovane pice
-        $sql2 = "SELECT * FROM pica WHERE id=$id";
-        //Izvršavanje upita
-        $rezultat2 = mysqli_query($conn, $sql2);
+        //Poziv funkcije za prikaz pice sa određenim id-em
+        $rezultat2 = $pice->prikazSaIdPice($id);
 
         //Dobijanje vrednosti nakon izvršenja upita
         $row2 = mysqli_fetch_assoc($rezultat2);
@@ -95,15 +99,11 @@
                     <select name="vrsta">
 
                         <?php 
-                            //Upit za dobijanje vrsta u prodaji
-                            $sql = "SELECT * FROM vrsta WHERE u_prodaji='Da'";
-                            //Izvršavanje upita
-                            $rezultat = mysqli_query($conn, $sql);
-                            //Brojanje redova
-                            $broj = mysqli_num_rows($rezultat);
+                            //Poziv funkcije za prikaz vrsta u prodaji
+                            $rezultat = $vrste->prikazVrstaUProdaji();
 
                             //Provera da li je vrsta dostupna ili ne
-                            if($broj>0)
+                            if(mysqli_num_rows($rezultat)>0)
                             {
                                 //Vrsta je dostupna
                                 while($row=mysqli_fetch_assoc($rezultat))
@@ -111,7 +111,7 @@
                                     $naziv = $row['naziv'];
                                     $id_vrste = $row['id'];
                                     
-                                    //echo "<option value='$id_vrste'>$naziv</option>";f
+                                    //echo "<option value='$id_vrste'>$naziv</option>";
                                     ?>
                                     <option <?php if($trenutna_vrsta==$id_vrste){echo "selected";} ?> value="<?php echo $id_vrste; ?>"><?php echo $naziv; ?></option>
                                     <?php
@@ -233,21 +233,8 @@
                     $naziv_slike = $trenutna_slika; //Defaultna slika kada dugme nije kliknuto
                 }
 
-                
-
                 //4. Izmena pice u bazi
-                $sql3 = "UPDATE pica SET 
-                    naziv = '$naziv',
-                    opis = '$opis',
-                    cena = $cena,
-                    naziv_slike = '$naziv_slike',
-                    id_vrste = '$vrsta',
-                    u_prodaji = '$u_prodaji'
-                    WHERE id=$id
-                ";
-
-                //Izvršavanje SQL upita
-                $rezultat3 = mysqli_query($conn, $sql3);
+                $rezultat3 = $pice->izmeniPicu($id, $naziv, $opis, $cena, $naziv_slike, $vrsta, $u_prodaji);
 
                 //Provera da li je upit izvršen
                 if($rezultat3==true)
