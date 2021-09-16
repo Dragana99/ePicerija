@@ -1,4 +1,7 @@
-<?php include('delovi-stranica/menu.php'); ?>
+<?php include('delovi-stranica/menu.php'); 
+    include_once '../klase/VrstaKlasa.php';
+    $vrste = new Vrsta();
+?>
 
 <div class="glavni-sadrzaj">
 	<div class="omotac">
@@ -13,16 +16,11 @@
                 //Uzimanje id-a i ostalih detalja
                 //echo "Uzimanje podataka";
                 $id = $_GET['id'];
-                //SQL upit za dobijanje svih ostalih podataka
-                $sql = "SELECT * FROM vrsta WHERE id=$id";
 
-                //Izvršavanje upita
-                $rezultat = mysqli_query($conn, $sql);
+                //funkcija sa SQL upitom za dobijanje svih podatak vrste sa određenim id-em
+                $rezultat = $vrste->prikazSaIdVrste($id);
 
-                //Brojanje redova radi provere validnosti id-a
-                $broj = mysqli_num_rows($rezultat);
-
-                if($broj==1)
+                if($broj = mysqli_num_rows($rezultat)==1)
                 {
                     //Uzimanje svih podataka
                     $row = mysqli_fetch_assoc($rezultat);
@@ -109,7 +107,7 @@
             if(isset($_POST['submit']))
             {
                 //echo "Kliknuto";
-                //1. Uzimanje svoh vrednosti iz forme
+                //1. Uzimanje svih vrednosti iz forme
                 $id = $_POST['id'];
                 $naziv = $_POST['naziv'];
                 $trenutna_slika = $_POST['trenutna_slika'];
@@ -185,15 +183,7 @@
                 }
 
                 //3. Update baze podataka
-                $sql2 = "UPDATE vrsta SET 
-                    naziv = '$naziv',
-                    naziv_slike = '$naziv_slike',
-                    u_prodaji = '$u_prodaji' 
-                    WHERE id=$id
-                ";
-
-                //Izvršavanje upita
-                $rezultat2 = mysqli_query($conn, $sql2);
+                $rezultat2 = $vrste->izmeniVrstu($id, $naziv, $naziv_slike, $u_prodaji);
 
                 //4. Redirekcija ka stranici - upravljaj vrstom, uz poruku
                 //Provera da li je izvršen ili ne
