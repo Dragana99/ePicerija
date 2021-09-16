@@ -1,4 +1,10 @@
-<?php include('delovi-stranica/menu.php'); ?>
+<?php 
+include('delovi-stranica/menu.php'); 
+include_once '../klase/PicaKlasa.php';
+include_once '../klase/VrstaKlasa.php';
+$pice = new Pica();
+$vrste = new Vrsta();
+?>
 
 <div class="glavni-sadrzaj">
     <div class="omotac">
@@ -53,28 +59,22 @@
 
                             <?php 
                                 //PHP kod za prikaz vrsta pice iz baze
-                                //1. SQL za uzimanje svih vrsta pice koje su u prodaji
-                                $sql = "SELECT * FROM vrsta WHERE u_prodaji='Da'";
-                                
-                                //Izvršavanje upita
-                                $rezultat = mysqli_query($conn, $sql);
-
-                                //Brojanje redova za proveru da li ima vrsta ili ne
-                                $broj = mysqli_num_rows($rezultat);
+                                //1. Poziv funkcije za prikaz svih vrsta pice koje su u prodaji
+                                $rezultat = $vrste->prikazVrstaUProdaji();
 
                                 //ukoliko je broj veći od nule, imamo vrste, u suprotnom ih nema
-                                if($broj>0)
+                                if(mysqli_num_rows($rezultat)>0)
                                 {
                                     //vrste postoje
                                     while($row=mysqli_fetch_assoc($rezultat))
                                     {
                                         //uzimanje detalja vrste
-                                        $id = $row['id'];
+                                        $id_vrste = $row['id'];
                                         $naziv = $row['naziv'];
-
+                                        
                                         ?>
 
-                                        <option value="<?php echo $id; ?>"><?php echo $naziv; ?></option>
+                                        <option value="<?php echo $id_vrste; ?>"><?php echo $naziv; ?></option>
 
                                         <?php
                                     }
@@ -148,7 +148,7 @@
                     {
                         // Slika je selektovana
                         //A. Preimenovanje slike
-                        //Uzimanje ekstenyije slike (jpg, png, gif, itd.) "calcona.jpg" calcona jpg
+                        //Uzimanje ekstenzije slike (jpg, png, gif, itd.) "calcona.jpg" calcona jpg
                         $ext = end(explode('.', $naziv_slike));
 
                         // Kreiranje novog imena slike
@@ -187,19 +187,8 @@
 
                 //3. Insert u bazu podataka
 
-                //Kreiranje SQL upita za save ili dodavanje pice
-                // Za prosleđivanje numerickih vrednosti nisu potrebni apostrofi '' ali za string vrednosti su obavezni ''
-                $sql2 = "INSERT INTO pica SET 
-                    naziv = '$naziv',
-                    opis = '$opis',
-                    cena = $cena,
-                    naziv_slike = '$naziv_slike',
-                    id_vrste = $vrsta_pice,
-                    u_prodaji = '$u_prodaji'
-                ";
-
-                //Izvršavanje upita
-                $rezultat2 = mysqli_query($conn, $sql2);
+                //Poziv funkcije za dodavanje pice u bazu podataka
+                $rezultat2 = $pice->dodajPicu($naziv, $opis, $cena, $naziv_slike, $vrsta_pice, $u_prodaji);
 
                 //Provera da li su podaci uneti ili ne
                 //4. Redirekcija ka stranici za upravljanje picama i prikaz poruke
