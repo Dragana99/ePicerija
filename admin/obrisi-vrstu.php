@@ -1,6 +1,8 @@
 <?php 
     //Uključivanje fajla konekcije
     include('../konfiguracija/konekcija.php');
+    include_once '../klase/VrstaKlasa.php';
+    $vrste = new Vrsta();
 
     //echo "Obriši stranicu";
     //Provera da li su id i naziv_slike postavljeni ili ne
@@ -32,11 +34,8 @@
         }
 
         //Brisanje podataka iz baze
-        //SQL za brisanje podataka iz baze
-        $sql = "DELETE FROM vrsta WHERE id=$id";
-
-        //Izvršavanje upita
-        $rezultat = mysqli_query($conn, $sql);
+        //Poziv funkcije za brisanje vrste iz baze podataka
+        $rezultat = $vrste->obrisiVrstu($id);
 
         //Provera da li su podaci obrisani iz baze ili ne
         if($rezultat==true)
@@ -53,8 +52,6 @@
             //Redirekcija ka stranici - upravljaj vrstom
             header('location:'.SITEURL.'admin/upravljaj-vrstom.php');
         }
-
- 
 
     }
     else
