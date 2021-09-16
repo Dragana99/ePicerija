@@ -1,4 +1,8 @@
-<?php include('delovi-stranica/menu.php'); ?>
+<?php 
+include('delovi-stranica/menu.php'); 
+include_once '../klase/PorudzbinaKlasa.php';
+$porudzbine = new Porudzbina();
+?>
 
 <div class="glavni-sadrzaj">
     <div class="omotac">
@@ -32,16 +36,12 @@
                     </tr>
 
                     <?php 
-                        //Uzimanje svih porudžbina iz baze
-                        $sql = "SELECT * FROM porudzbina ORDER BY id DESC"; // Prikaz poslednje porudžbine na vrhu
-                        //Izvršavanje upita
-                        $rezultat = mysqli_query($conn, $sql);
-                        //Brojanje redova
-                        $broj = mysqli_num_rows($rezultat);
+                        //Poziv funkcije za prikaz svih porudžbina iz baze
+                        $rezultat = $porudzbine->svePorudzbine();
 
                         $sn = 1; //Kreiranje varijable serijskog broja i dodeljivanje inicijalne vrednosti 1
 
-                        if($broj>0)
+                        if(mysqli_num_rows($rezultat)>0)
                         {
                             //Porudžbina dostupna
                             while($row=mysqli_fetch_assoc($rezultat))
