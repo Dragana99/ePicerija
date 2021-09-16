@@ -1,4 +1,8 @@
-<?php include('delovi-stranica/menu.php'); ?>
+<?php 
+include('delovi-stranica/menu.php'); 
+include_once '../klase/VrstaKlasa.php';
+$vrste = new Vrsta();
+?>
 
 <div class="glavni-sadrzaj">
     <div class="omotac">
@@ -68,20 +72,14 @@
 
                     <?php 
 
-                        //SQL upit za dobijanje svih vrsta iz baze
-                        $sql = "SELECT * FROM vrsta";
-
-                        //Izvršavanje upita
-                        $rezultat = mysqli_query($conn, $sql);
-
-                        //Brojanje redova
-                        $broj = mysqli_num_rows($rezultat);
+                        //funkcija sa SQL upitom za dobijanje svih vrsta iz baze
+                        $rezultat = $vrste->sveVrste();
 
                         //Kreiranje varijable serijskog broja i dodeljivanje vrednosti 1
                         $sn=1;
 
                         //Provera da li postoje podaci u bazi
-                        if($broj>0)
+                        if($broj = mysqli_num_rows($rezultat)>0)
                         {
                             //Postoje podaci u bazi
                             //uzimanje podataka i prikaz
