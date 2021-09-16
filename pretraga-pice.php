@@ -1,11 +1,15 @@
- <?php include('osnovni-delovi-stranica/menu.php'); ?>
+ <?php 
+ include('osnovni-delovi-stranica/menu.php'); 
+ include_once 'klase/PicaKlasa.php';
+ $pice = new Pica();
+ ?>
 
     <!-- Sekcija - Pretraga pice -->
     <section class="pretraga-pice centriran-text">
         <div class="kontejner">
             <?php 
 
-                //Trazenje kljucne reci - pretraga
+                //Trazenje ključne reči - pretraga
                 $pretraga = $_POST['pretraga'];
             ?>
             <h2>Pronađene pice: <a href="#" class="beli-text">"<?php echo $pretraga; ?>"</a></h2>
@@ -21,17 +25,11 @@
 
             <?php 
 
-                //SQL upit za pronalazenje pica na osnovu unete kljucne reci
-                $sql = "SELECT * FROM pica WHERE naziv LIKE '%$pretraga%' OR opis LIKE '%$pretraga%'";
-
-                //Izvrsavanje upita
-                $rezultat = mysqli_query($conn, $sql);
-
-                //Brojanje redova
-                $broj = mysqli_num_rows($rezultat);
+                //Poziv funkcije za pretragu naziva i opisa pica po unetoj ključnoj reči
+                $rezultat = $pice->pretraziPice($pretraga);
 
                 //Provera dostupnosti pice
-                if($broj>0)
+                if(mysqli_num_rows($rezultat)>0)
                 {
                     //Dostupna pica
                     while($row=mysqli_fetch_assoc($rezultat))
@@ -47,7 +45,7 @@
                         <div class="pica-menu-box">
                             <div class="pica-menu-slika">
                                 <?php 
-                                    // Provera dostupnosti slike pod odredjenim nazivom
+                                    // Provera dostupnosti slike 
                                     if($naziv_slike=="")
                                     {
                                         //Slika nije dostupna
@@ -66,12 +64,12 @@
 
                             <div class="pica-menu-opis">
                             <h4><?php echo $naziv; ?></h4>
-                            <p class="cena-pice">$<?php echo $cena; ?></p>
+                            <p class="cena-pice"><?php echo $cena; ?> din.</p>
                             <p class="detalji-pice">
                                 <?php echo $opis; ?>
                             </p>
                             <br>
-                                <a href="#" class="btn btn-stil">Poruči odmah</a>
+                                <a href="<?php echo SITEURL; ?>porudzbina.php?pica_id=<?php echo $id; ?>" class="btn btn-stil">Poruči odmah</a>
                             </div>
                         </div>
 
