@@ -6,12 +6,12 @@
 
         <br><br>
 
-        <?php 
-            if(isset($_SESSION['add'])) //Provera da li je sesija setovana ili ne
-            {
-                echo $_SESSION['add']; //Prikaz poruke sesije ukoliko je setovana
-                unset($_SESSION['add']); //Brisanje poruke sesije
-            }
+        <?php
+        if (isset($_SESSION['add'])) //Provera da li je sesija setovana ili ne
+        {
+            echo $_SESSION['add']; //Prikaz poruke sesije ukoliko je setovana
+            unset($_SESSION['add']); //Brisanje poruke sesije
+        }
         ?>
 
         <form action="" method="POST">
@@ -55,51 +55,28 @@
 <?php include('delovi-stranica/footer.php'); ?>
 
 
-<?php 
-    //Obrada podataka iz forme i čuvanje u bazu podataka
+<?php
+//Obrada podataka iz forme i čuvanje u bazu podataka
 
-    //Provera da li je submit dugme pritisnuto ili ne
+//Provera da li je submit dugme pritisnuto ili ne
 
-    if(isset($_POST['submit']))
-    {
-        //Dugme je kliknuto
-        //echo "Dugme kliknuto";
+if (isset($_POST['submit'])) {
+    //Dugme je kliknuto
+    //echo "Dugme kliknuto";
 
-        //1. Uzimanje podataka iz forme
-        $ime_prezime = $_POST['ime_prezime'];
-        $username = $_POST['username'];
-        $password= md5($_POST['password']); //Enkripcija lozinke sa MD
+    require_once dirname(getcwd()) . '/konfiguracija/admin.php';
+    require_once dirname(getcwd()) . '/konfiguracija/AdminBLL.php';
 
-        //2. SQL Upit za čuvanje podataka u bazu
-        $sql = "INSERT INTO admin SET 
-            ime_prezime='$ime_prezime',
-            username='$username',
-            password='$password'
-        ";
-		
-        //3. Izvršavanje upita i čuvanje podataka u bazu
-        $rezultat = mysqli_query($conn, $sql) or die(mysqli_error());
-
-        //4. Provera da li su (Upiti izvršeni) podaci uneti ili ne i prikaz adekvatne poruke
-        if($rezultat==TRUE)
-        {
-            //Podaci su uneti
-            //echo "Podaci Uneti";
-            //Kreiranje varijable sesije za prikaz poruke
-            $_SESSION['add'] = "<div class='uspesno'>Admin dodat uspešno.</div>";
-            //Redirekcija ka stranici za upravljanje adminom
-            header("location:".SITEURL.'admin/upravljaj-adminom.php');
-        }
-        else
-        {
-            //Neuspešno uneti podaci 
-            //echo "Neuspešan unos";
-            //Kreiranje varijable sesije za prikaz poruke
-            $_SESSION['add'] = "<div class='greska'>Admin neuspešno dodat.</div>";
-            //Redirekcija stranice za dodavanje admina
-            header("location:".SITEURL.'admin/dodaj-admina.php');
-        }
-
+    // napravi novog admina
+    $koneckija = new Konekcija();
+    $admin = new Admin($koneckija, $_POST["ime_prezime"], $_POST['username'], $_POST["password"]);
+    $adminBLL = new AdminBLL($koneckija, $admin);
+    try {
+        $adminBLL->dodajAdmina();
+    } catch (Exception $ex) {
+        print_r("Greska: " . $ex->getMessage());
     }
-    
+}
+
+
 ?>
